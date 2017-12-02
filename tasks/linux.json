@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Run Puppet Agent on Linux/Unix node",
+  "parameters": {
+    "noop": {
+      "description": "Run Puppet in No-op mode; defaults to false",
+      "type": "Enum[String['true'],String['false']"
+    }
+  }
+}
