@@ -23,10 +23,10 @@ end
 cmd_string = "/opt/puppetlabs/bin/puppet agent -t #{_noop}"
 _,stdout,stderr,wait_thr = Open3.popen3(cmd_string)
 
-if ([wait_thr.value.exitstatus] & [0,2]).empty?
+if !([wait_thr.value.exitstatus] & [0,2]).empty?
   puts({ status: 'success', message: stdout.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
   exit 0
 else
   puts({ status: 'failure', message: stderr.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
-  exit 1
+  exit wait_thr.value.exitstatus
 end
