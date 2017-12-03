@@ -28,7 +28,7 @@ If(@(0,2).contains($rt))
 
 } else {
 
-  ConvertTo-JSON -InputObject @{status="failure";message=$e;resultcode=$rt}
+  ConvertTo-JSON -InputObject @{status="failure";message=@($e);resultcode=$rt}
   exit $rt
 
 }
