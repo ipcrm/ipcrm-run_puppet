@@ -10,6 +10,6 @@
     "resource": {
       "description": "The resource title to search for (reference case!  For example Package, or Class::Definedtype )",
       "type": "String[1]"
-    },
+    }
   }
 }
