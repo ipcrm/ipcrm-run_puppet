@@ -28,6 +28,6 @@ begin
   puts({ status: 'success', message: stdout.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
   exit 0
 rescue Puppet::Error => e
-  puts({ status: 'failure', message: ["#{e.message}"], resultcode: wait_thr.value.exitstatus }.to_json)
+  puts({ status: 'failure', message: [e.message], resultcode: wait_thr.value.exitstatus }.to_json)
   exit 1
 end
