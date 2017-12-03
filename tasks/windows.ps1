@@ -5,8 +5,6 @@ Param(
   $noop
 )
 
-$env:PATH += ";C:\Program Files\Puppet Labs\Puppet\bin;"
-
 if ($noop -eq 'true') {
   $cmd = 'puppet.bat agent -t --noop 2>&1'
 } elseif ($noop -eq $null -or $noop -eq "" -or $noop -eq "false") {
@@ -16,23 +14,21 @@ if ($noop -eq 'true') {
 }
 
 try {
- $out = Invoke-Expression "& ${cmd}"
+ $out = Invoke-Expression $cmd
 } catch {
  $e = $_
 }
 $rt = $LASTEXITCODE
-$msg = $out -join "`\n"
-
 
 If(@(0,2).contains($rt))
 {
 
-  ConvertTo-JSON -InputObject @{status="success";message=$msg;resultcode=$rt}
+  ConvertTo-JSON -InputObject @{status="success";message=$out;resultcode=$rt}
   exit 0
 
 } else {
 
-  ConvertTo-JSON -InputObject @{status="faulre";message=$e;resultcode=$rt}
+  ConvertTo-JSON -InputObject @{status="failure";message=$e;resultcode=$rt}
   exit $rt
 
 }
