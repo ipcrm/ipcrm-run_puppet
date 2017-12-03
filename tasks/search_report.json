@@ -1,0 +1,15 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Query Reports of specific roles for resource entries, and print log messages (from last report)",
+  "parameters": {
+    "role": {
+      "description": "The role fact value",
+      "type": "String[1]"
+    },
+    "resource": {
+      "description": "The resource title to search for (reference case!  For example Package, or Class::Definedtype )",
+      "type": "String[1]"
+    },
+  }
+}
