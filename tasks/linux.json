@@ -5,7 +5,7 @@
   "parameters": {
     "noop": {
       "description": "Run Puppet in No-op mode; defaults to false",
-      "type": "Enum[String['true'],String['false']"
+      "type": "Enum['true','false']"
     }
   }
 }

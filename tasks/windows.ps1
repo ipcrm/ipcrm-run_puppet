@@ -5,26 +5,34 @@ Param(
   $noop
 )
 
+$env:PATH += ";C:\Program Files\Puppet Labs\Puppet\bin;"
+
 if ($noop -eq 'true') {
-  $noop_arg = '--noop'
+  $cmd = 'puppet.bat agent -t --noop 2>&1'
 } elseif ($noop -eq $null -or $noop -eq "" -or $noop -eq "false") {
-  $noop_arg = '--no-noop'
+  $cmd = 'puppet.bat agent -t --no-noop 2>&1'
 } else {
   Throw "Unknown argument value for 'noop'.  Accepts true/false, not [${noop}]"
 }
 
 try {
- $out = Invoke-Command -ScriptBlock {puppet agent -t ${noop_arg} 2>&1}
+ $out = Invoke-Expression "& ${cmd}"
 } catch {
  $e = $_
 }
 $rt = $LASTEXITCODE
-$msg = $out | Out-string
+$msg = $out -join "`\n"
+
 
 If(@(0,2).contains($rt))
 {
-  "{ status: 'success', message: $msg, resultcode: $rt }" | ConvertTo-Json -Compress
+
+  ConvertTo-JSON -InputObject @{status="success";message=$msg;resultcode=$rt}
+  exit 0
+
 } else {
-  $error = $e | Out-string
-  "{ status: 'failure', message: $error, resultcode: $rt }" | ConvertTo-Json -Compress
+
+  ConvertTo-JSON -InputObject @{status="faulre";message=$e;resultcode=$rt}
+  exit $rt
+
 }
