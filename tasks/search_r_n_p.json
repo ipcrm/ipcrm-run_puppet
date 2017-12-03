@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Query Roles/Profiles assigned to a node",
+  "parameters": {
+    "certname": {
+      "description": "The certname of the machine to check",
+      "type": "String[1]"
+    }
+  }
+}
