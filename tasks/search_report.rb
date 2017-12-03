@@ -5,7 +5,7 @@ require 'json'
 require 'open3'
 
 _param = STDIN.read
-params = JSON.parse(_param)[0]
+params = JSON.parse(_param)
 role = params['role']
 resource = params['resource']
 
