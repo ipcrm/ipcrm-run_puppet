@@ -27,6 +27,6 @@ if !([wait_thr.value.exitstatus] & [0,2]).empty?
   puts({ status: 'success', message: stdout.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
   exit 0
 else
-  puts({ status: 'failure', message: stderr.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
+  puts({ status: 'failure', message: stdout.readlines + stderr.readlines, resultcode: wait_thr.value.exitstatus }.to_json)
   exit wait_thr.value.exitstatus
 end
